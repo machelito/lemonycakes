@@ -13,13 +13,13 @@ class _CarouselState extends State<Carousel> {
   var images = ['assets/images/unicornio.jpg',
                 'assets/images/toy_story.jpg',
                 'assets/images/coco.jpg',
-                'assets/images/angel.jpg',
+                'assets/images/globo.jpg',
                 'assets/images/cars.jpg',];
 
   var titles = ['Unicornio',
   'Toy Story',
   'Coco',
-  'Angelito',
+  'Globo',
   'Cars',];
 
   @override
@@ -44,6 +44,9 @@ class _CarouselState extends State<Carousel> {
     print('-------> BUILD STATE CAROUSEL');
     return Scaffold(
       backgroundColor: Colors.purpleAccent,
+      appBar: AppBar(
+        title: Text("Tortas"),
+      ),
       body: Center(
         child: Container(
           child: PageView.builder(

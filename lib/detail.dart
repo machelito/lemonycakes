@@ -37,7 +37,7 @@ class DetailScreen extends StatelessWidget {
               top: 40.0,
               child: Icon(
                 Icons.favorite_border,
-                color: Colors.red,
+                color: Colors.white,
               ),
             ),
           ]
