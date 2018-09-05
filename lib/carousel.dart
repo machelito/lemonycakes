@@ -25,7 +25,6 @@ class _CarouselState extends State<Carousel> {
   @override
   void initState() {
     super.initState();
-    print('-------> INIT STATE CAROUSEL');
     controller = PageController(
       initialPage: currentPage,
       keepPage: false,
@@ -41,9 +40,8 @@ class _CarouselState extends State<Carousel> {
 
   @override
   Widget build(BuildContext context) {
-    print('-------> BUILD STATE CAROUSEL');
     return Scaffold(
-      backgroundColor: Colors.purpleAccent,
+      backgroundColor: const Color(0xff7c94b6),
       appBar: AppBar(
         title: Text("Tortas"),
       ),
@@ -64,7 +62,6 @@ class _CarouselState extends State<Carousel> {
   }
 
   Widget _builder(int index) {
-    print('-------> ITEM BUILD CAROUSEL');
     return AnimatedBuilder(
       animation: controller,
       child: GestureDetector(
@@ -91,10 +88,13 @@ class _CarouselState extends State<Carousel> {
       ),
       builder: (context, child) {
         double value = 1.0;
+
         if (controller.position.haveDimensions) {
           value = controller.page - index;
-          value = (1 - (value.abs() * 0.5)).clamp(0.0, 1.0);
+        } else {
+          value = currentPage.toDouble() - index;
         }
+        value = (1 - (value.abs() * 0.5)).clamp(0.0, 1.0);
 
         return Center(
           child: SizedBox(
