@@ -1,50 +1,42 @@
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
-
+class DetailScreen extends StatefulWidget {
   final String tag;
   final String title;
+  final String imageUrl;
 
   const DetailScreen({
     Key key,
     @required this.tag,
     @required this.title,
+    @required this.imageUrl,
   })
       : assert(tag != null),
         assert(title != null),
+        assert(imageUrl != null),
         super(key: key);
+
+  @override
+  _DetailState createState() => _DetailState();
+}
+
+class _DetailState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff7c94b6),
-      appBar: AppBar(
-        title: Text(this.title),
-      ),
       body: GestureDetector(
         child: Stack(
           children: [
-            Center(
-              child: Hero(
-                tag: this.tag,
-                child: Image.asset(
-                  this.tag,
-                ),
-              ),
-            ),
-            Positioned(
-              right: 10.0,
-              top: 40.0,
-              child: Icon(
-                Icons.favorite_border,
-                color: Colors.white,
+            Hero(
+              tag: widget.tag,
+              child: Image.network(
+                widget.imageUrl,
               ),
             ),
           ]
         ),
-        onTap: () {
-          Navigator.pop(context);
-        },
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lemonycakes/carousel.dart';
-import 'package:lemonycakes/detail.dart';
 
 void main() => runApp(new MyApp());
 
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Lemony Cakes',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.blueGrey,
         fontFamily: 'Roboto',
       ),
       home: MainScreen(),
@@ -26,93 +25,100 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff7c94b6),
-      appBar: AppBar(
-        title: Text('Lemony Cakes'),
-      ),
       body: ListView(
         children: <Widget>[
           InkWell(
             child: Container (
-                padding: EdgeInsets.all(50.0),
-                decoration: BoxDecoration (
-                  color: const Color(0xff7c94b6),
-                  image: new DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                    image: new NetworkImage(
-                      'https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg',
-                    ),
+              padding: EdgeInsets.all(50.0),
+              decoration: BoxDecoration (
+                color: const Color(0xff7c94b6),
+                image: new DecorationImage(
+                  fit: BoxFit.cover,
+                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                  image: new NetworkImage(
+                    'https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg',
                   ),
                 ),
-                child: ListTile (
-                  title: Text(
-                    'Tortas',
-                    style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
-                  ),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return Carousel();
-                    }));
-                  },
-                )
+              ),
+              child: ListTile (
+                title: Text(
+                  'Tortas',
+                  style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                    return Carousel(category: 'cakes',);
+                  }));
+                },
+              )
             ),
           ),
           Container (
-              padding: EdgeInsets.all(50.0),
-              decoration: BoxDecoration (
-                color: Colors.greenAccent,
-                image: new DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  image: new NetworkImage(
-                    'https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/22089123_1545827442121945_3302186117828413746_n.jpg?_nc_cat=0&oh=8f1e63013e1a5db3a6e5f9bc19618ef0&oe=5C289EB7',
-                  ),
+            padding: EdgeInsets.all(50.0),
+            decoration: BoxDecoration (
+              color: Colors.greenAccent,
+              image: new DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                image: new NetworkImage(
+                  'https://firebasestorage.googleapis.com/v0/b/lemony-cakes.appspot.com/o/InstagramCapture_3e104899-6f18-4d4b-a781-efb0b3991d87.jpg?alt=media&token=8f52ae06-316e-492c-918f-3ac424f2372e',
                 ),
               ),
-              child: ListTile (
-                  title: Text(
-                    'Galletas',
-                    style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
-                  )
-              )
+            ),
+            child: ListTile (
+              title: Text(
+                'Galletas',
+                style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return Carousel(category: 'cookies',);
+                }));
+              },
+            )
           ),
           Container (
-              padding: EdgeInsets.all(50.0),
-              decoration: BoxDecoration (
-                color: Colors.lightBlueAccent,
-                image: new DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  image: new NetworkImage(
-                    'http://www.allwhitebackground.com/images/2/2582-190x190.jpg',
-                  ),
+            padding: EdgeInsets.all(50.0),
+            decoration: BoxDecoration (
+              color: Colors.lightBlueAccent,
+              image: new DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                image: new AssetImage(
+                  'assets/images/cupcakes.jpg',
                 ),
               ),
-              child: ListTile (
-                  title: Text(
-                    'Cupcakes',
-                    style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
-                  )
-              )
+            ),
+            child: ListTile (
+              title: Text(
+                'Cupcakes',
+                style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return Carousel(category: 'cupcakes',);
+                }));
+              },
+            )
           ),
           Container (
-              padding: EdgeInsets.all(50.0),
-              decoration: BoxDecoration (
-                color: Colors.redAccent,
-                image: new DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  image: new NetworkImage(
-                    'http://energy.go.th/2015/wp-content/uploads/2017/07/youtube-512.png',
-                  ),
+            padding: EdgeInsets.all(50.0),
+            decoration: BoxDecoration (
+              color: Colors.redAccent,
+              image: new DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                image: new AssetImage(
+                  'assets/images/youtube.jpg',
                 ),
               ),
-              child: ListTile (
-                  title: Text(
-                    'Tutoriales',
-                    style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
-                  ),
-              )
+            ),
+            child: ListTile (
+                title: Text(
+                  'Tutoriales',
+                  style: TextStyle(fontFamily: 'KaushanScript', fontSize: 40.0, color: Colors.white),
+                ),
+            )
           )
         ],
       ),
@@ -121,13 +127,14 @@ class MainScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.purple,
+              child: Center(
+                child: Image(
+                    image: AssetImage('assets/images/logo.png'),
+                ),
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Favoritos'),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -136,7 +143,16 @@ class MainScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Configuración'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Cerrar sesión'),
               onTap: () {
                 // Update the state of the app
                 // ...

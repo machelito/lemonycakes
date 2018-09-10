@@ -4,6 +4,7 @@ description: Lemony Cakes mobile application.
 dependencies:
   flutter:
     sdk: flutter
+  cloud_firestore: ^0.8.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -27,7 +28,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    - assets/images/cupcakes.jpg
+    - assets/images/logo.png
+    - assets/images/marca.png
+    - assets/images/youtube.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
@@ -44,15 +48,7 @@ flutter:
      - family: KaushanScript
        fonts:
          - asset: assets/fonts/KaushanScript-Regular.otf
-     - family: AlexBrush
-       fonts:
-         - asset: assets/fonts/AlexBrush-Regular.ttf
-     - family: GreatVibes
-       fonts:
-         - asset: assets/fonts/GreatVibes-Regular.otf
-     - family: DaiBanna
-       fonts:
-         - asset: assets/fonts/dbsillb.ttf
+
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
