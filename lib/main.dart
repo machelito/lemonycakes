@@ -23,7 +23,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff7c94b6),
+      backgroundColor: const Color(0xff716999),
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -128,6 +128,9 @@ class MainScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+              decoration: BoxDecoration(
+                color: const Color(0xff716999),
+              ),
               child: Center(
                 child: Image(
                     image: AssetImage('assets/images/logo.png'),

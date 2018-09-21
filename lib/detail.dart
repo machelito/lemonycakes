@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
   final String tag;
   final String title;
+  final String text;
   final String imageUrl;
+  final String facebookUrl;
+  final bool favorite;
 
   const DetailScreen({
     Key key,
     @required this.tag,
     @required this.title,
+    @required this.text,
     @required this.imageUrl,
+    @required this.facebookUrl,
+    @required this.favorite,
   })
       : assert(tag != null),
         assert(title != null),
+        assert(text != null),
         assert(imageUrl != null),
+        assert(favorite != null),
+        assert(facebookUrl != null),
         super(key: key);
 
   @override
@@ -27,9 +37,26 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
   Animation<double> heigth;
   double _appBarHeight = 400.0;
 
+  bool _isFavorited = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      _isFavorited = !_isFavorited;
+    });
+  }
+
+  void _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _isFavorited = widget.favorite;
     _containerController = AnimationController(duration: Duration(milliseconds: 2000), vsync: this);
     width = Tween<double>(
       begin: 200.0,
@@ -90,7 +117,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                       },
                       icon: new Icon(
                         Icons.arrow_back,
-                        color: Colors.cyan,
+                        color: Colors.deepPurple,
                         size: 30.0,
                       ),
                     ),
@@ -152,12 +179,16 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.grey,
+                                        child: IconButton(
+                                          icon: (_isFavorited
+                                              ? Icon(Icons.favorite)
+                                              : Icon(Icons.favorite_border)),
+                                          color: (_isFavorited
+                                              ? Colors.pinkAccent
+                                              : Colors.grey),
+                                          onPressed: _toggleFavorite,
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -177,7 +208,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                                          widget.text,
                                           style: TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 15.0,
@@ -212,9 +243,12 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                           ),
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.launch,
+                                      IconButton(
+                                        icon: Icon(Icons.launch),
                                         color: Colors.grey,
+                                        onPressed: () {
+                                          _launchURL(widget.facebookUrl);
+                                        },
                                       ),
                                     ],
                                   ),
@@ -233,22 +267,6 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
         ),
       ),
     );
-
-      /**Scaffold(
-      backgroundColor: const Color(0xff7c94b6),
-      body: GestureDetector(
-        child: Stack(
-          children: [
-            Hero(
-              tag: widget.tag,
-              child: Image.network(
-                widget.imageUrl,
-              ),
-            ),
-          ]
-        ),
-      ),
-    );*/
   }
 
 }

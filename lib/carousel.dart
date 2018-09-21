@@ -178,6 +178,9 @@ class _AnimatedItemState extends State<AnimatedItem> {
             tag: widget.ds['name'],
             title: widget.ds['name'],
             imageUrl: widget.ds['image_url'],
+            facebookUrl: widget.ds['facebook_url'],
+            text: widget.ds['text'],
+            favorite: _isFavorited,
           );
         }));
       },
