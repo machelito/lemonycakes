@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lemonycakes/carousel.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(LemonyCakesApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class LemonyCakesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -26,17 +25,18 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff7c94b6),
       body: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           InkWell(
             child: Container (
               padding: EdgeInsets.all(50.0),
               decoration: BoxDecoration (
-                color: const Color(0xff7c94b6),
+                color: const Color(0xff716999),
                 image: new DecorationImage(
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  image: new NetworkImage(
-                    'https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg',
+                  image: new AssetImage(
+                    'assets/images/rainbowcake.jpg',
                   ),
                 ),
               ),
@@ -124,6 +124,7 @@ class MainScreen extends StatelessWidget {
       ),
       drawer: Drawer(
         child: ListView(
+          shrinkWrap: true,
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
