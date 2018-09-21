@@ -31,12 +31,12 @@ class MainScreen extends StatelessWidget {
             child: Container (
               padding: EdgeInsets.all(50.0),
               decoration: BoxDecoration (
-                color: const Color(0xff7c94b6),
+                color: const Color(0xff716999),
                 image: new DecorationImage(
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  image: new NetworkImage(
-                    'https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg',
+                  image: new AssetImage(
+                    'assets/images/rainbowcake.jpg',
                   ),
                 ),
               ),

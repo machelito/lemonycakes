@@ -32,6 +32,8 @@ flutter:
     - assets/images/logo.png
     - assets/images/marca.png
     - assets/images/youtube.jpg
+    - assets/images/rainbowcake.jpg
+    - assets/images/unicornio.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
