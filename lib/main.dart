@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lemonycakes/carousel.dart';
+import 'package:lemonycakes/favorites.dart';
+import 'package:lemonycakes/settings.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() => runApp(LemonyCakesApp());
 
@@ -18,7 +21,35 @@ class LemonyCakesApp extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('on launch $message');
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.getToken().then((token){
+      print(token);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +91,8 @@ class MainScreen extends StatelessWidget {
               image: new DecorationImage(
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                image: new NetworkImage(
-                  'https://firebasestorage.googleapis.com/v0/b/lemony-cakes.appspot.com/o/InstagramCapture_3e104899-6f18-4d4b-a781-efb0b3991d87.jpg?alt=media&token=8f52ae06-316e-492c-918f-3ac424f2372e',
+                image: new AssetImage(
+                  'assets/images/cookies.jpg',
                 ),
               ),
             ),
@@ -140,19 +171,20 @@ class MainScreen extends StatelessWidget {
             ListTile(
               title: Text('Favoritos'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return FavoritesScreen();
+                }));
+                //
               },
             ),
             ListTile(
               title: Text('Configuración'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return SettingsScreen();
+                }));
               },
             ),
             ListTile(

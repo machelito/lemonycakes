@@ -7,6 +7,7 @@ dependencies:
   cloud_firestore: ^0.8.0
   cupertino_icons: ^0.1.2
   url_launcher: ^3.0.3
+  firebase_messaging: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +28,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/cupcakes.jpg
+    - assets/images/cookies.jpg
     - assets/images/logo.png
     - assets/images/marca.png
     - assets/images/youtube.jpg

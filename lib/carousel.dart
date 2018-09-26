@@ -57,6 +57,19 @@ class _CarouselState extends State<Carousel> {
               ),
             );
           }
+          if (snapshot.data.documents.length == 0) {
+            return Container(
+              child: Center(
+                child: Text(
+                  'No hay elementos para mostrar',
+                  style: TextStyle(
+                      fontFamily: 'KaushanScript',
+                      fontSize: 25.0,
+                      color: Colors.white),
+                ),
+              ),
+            );
+          }
           return new PageView.builder(
             itemCount: snapshot.data.documents.length,
             onPageChanged: (value) {
@@ -66,7 +79,8 @@ class _CarouselState extends State<Carousel> {
             },
             controller: controller,
             itemBuilder: (context, index) {
-              DocumentSnapshot ds = snapshot.data.documents[index];
+              int invertedIndex = snapshot.data.documents.length - index - 1;
+              DocumentSnapshot ds = snapshot.data.documents[invertedIndex];
               return AnimatedBuilder(
                 animation: controller,
                 child: AnimatedItem(
