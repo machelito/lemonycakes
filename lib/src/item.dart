@@ -1,3 +1,5 @@
+part of app;
+
 class Item {
 
   final String id;

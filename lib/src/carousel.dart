@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:lemonycakes/detail.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+part of app;
 
 class Carousel extends StatefulWidget {
 
@@ -84,7 +82,12 @@ class _CarouselState extends State<Carousel> {
               return AnimatedBuilder(
                 animation: controller,
                 child: AnimatedItem(
-                  ds: ds,
+                  item: Item(
+                    imageUrl: ds['image_url'],
+                    text: ds['text'],
+                    facebookUrl: ds['facebook_url'],
+                    name: ds['name'],
+                  ),
                 ),
                 builder: (context, child) {
                   double value = 1.0;
@@ -114,13 +117,13 @@ class _CarouselState extends State<Carousel> {
 
 class AnimatedItem extends StatefulWidget {
 
-  final DocumentSnapshot ds;
+  final Item item;
 
   const AnimatedItem({
     Key key,
-    @required this.ds,
+    @required this.item,
   })
-      : assert(ds != null),
+      : assert(item != null),
         super(key: key);
 
 
@@ -147,11 +150,11 @@ class _AnimatedItemState extends State<AnimatedItem> {
             children: [
               Center(
                 child: Hero(
-                  tag: widget.ds['name'],
+                  tag: widget.item.name,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      widget.ds['image_url'],
+                      widget.item.imageUrl,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -162,7 +165,7 @@ class _AnimatedItemState extends State<AnimatedItem> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    widget.ds['name'],
+                    widget.item.name,
                     style: TextStyle(
                         fontFamily: 'KaushanScript',
                         fontSize: 25.0,
@@ -188,13 +191,8 @@ class _AnimatedItemState extends State<AnimatedItem> {
       ]),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return DetailScreen(
-            tag: widget.ds['name'],
-            title: widget.ds['name'],
-            imageUrl: widget.ds['image_url'],
-            facebookUrl: widget.ds['facebook_url'],
-            text: widget.ds['text'],
-            favorite: _isFavorited,
+          return Backdrop(
+            item: widget.item,
           );
         }));
       },

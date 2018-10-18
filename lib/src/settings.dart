@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of app;
 
 class SettingsScreen extends StatefulWidget {
 
@@ -10,6 +10,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
 
   int _radioValue = 1;
+
+  void handleRadioValueChanged(int value) {
+    setState(() {
+      _radioValue = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Radio(
                       value: 0,
                       groupValue: _radioValue,
+                      onChanged: handleRadioValueChanged,
                     ),
                   ],
                 ),
@@ -56,6 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Radio(
                       value: 1,
                       groupValue: _radioValue,
+                      onChanged: handleRadioValueChanged,
                     ),
                   ],
                 ),
@@ -69,6 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Radio(
                       value: 2,
                       groupValue: _radioValue,
+                      onChanged: handleRadioValueChanged,
                     ),
                   ],
                 ),

@@ -1,29 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+part of app;
 
 class DetailScreen extends StatefulWidget {
-  final String tag;
-  final String title;
-  final String text;
-  final String imageUrl;
-  final String facebookUrl;
+  final Item item;
   final bool favorite;
 
   const DetailScreen({
     Key key,
-    @required this.tag,
-    @required this.title,
-    @required this.text,
-    @required this.imageUrl,
-    @required this.facebookUrl,
+    @required this.item,
     @required this.favorite,
   })
-      : assert(tag != null),
-        assert(title != null),
-        assert(text != null),
-        assert(imageUrl != null),
+      : assert(item != null),
         assert(favorite != null),
-        assert(facebookUrl != null),
         super(key: key);
 
   @override
@@ -94,7 +81,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Container(
       child: Hero(
-        tag: widget.tag,
+        tag: widget.item.name,
         child: Container(
           alignment: Alignment.center,
           width: width.value,
@@ -102,9 +89,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
           decoration: new BoxDecoration(
             color: Colors.white,
           ),
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: <Widget>[
+          child:
               CustomScrollView(
                 shrinkWrap: false,
                 slivers: <Widget>[
@@ -133,7 +118,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                               image: DecorationImage(
                                 fit: BoxFit.fitWidth,
                                 image: NetworkImage(
-                                  widget.imageUrl,
+                                  widget.item.imageUrl,
                                 ),
                               ),
                             ),
@@ -145,7 +130,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                   SliverList(
                     delegate: SliverChildListDelegate(
                       <Widget>[
-                        Card(
+                        Material(
                           color: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -153,7 +138,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  padding: EdgeInsets.only(bottom: 20.0),
+
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -169,7 +154,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          widget.title,
+                                          widget.item.name,
                                           style: TextStyle(
                                             fontFamily: 'KaushanScript',
                                             fontSize: 25.0,
@@ -193,22 +178,12 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(20.0),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Colors.black12,
-                                      ),
-                                    ),
-                                  ),
                                   child: Column(
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          widget.text,
+                                          widget.item.text,
                                           style: TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 15.0,
@@ -220,16 +195,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(20.0),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Colors.black12,
-                                      ),
-                                    ),
-                                  ),
+
                                   child: Row(
                                     children: <Widget>[
                                       Padding(
@@ -247,7 +213,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                         icon: Icon(Icons.launch),
                                         color: Colors.grey,
                                         onPressed: () {
-                                          _launchURL(widget.facebookUrl);
+                                          _launchURL(widget.item.facebookUrl);
                                         },
                                       ),
                                     ],
@@ -262,8 +228,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                   ),
                 ],
               ),
-            ],
-          ),
+
         ),
       ),
     );
