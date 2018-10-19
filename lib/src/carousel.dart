@@ -111,6 +111,27 @@ class _CarouselState extends State<Carousel> {
           );
         },
       ),
+      /*bottomNavigationBar: BottomNavigationBar(fixedColor: Colors.red,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              backgroundColor: Colors.red,
+              icon: Icon(Icons.camera_alt),
+              title: Text("Galeria"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border),
+              title: Text("Favoritos"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.play_arrow),
+              title: Text("Tutoriales"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_box),
+              title: Text("Perfil"),
+            ),
+          ],
+      ),*/
     );
   }
 }
@@ -191,8 +212,9 @@ class _AnimatedItemState extends State<AnimatedItem> {
       ]),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return Backdrop(
+          return DetailScreen(
             item: widget.item,
+            favorite: true,
           );
         }));
       },
