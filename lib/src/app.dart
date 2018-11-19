@@ -28,29 +28,10 @@ class LemonyCakesApp extends StatelessWidget {
       title: 'Lemony Cakes',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        canvasColor: const Color(0xfffafafa),
         fontFamily: 'Roboto',
       ),
       home: LoginScreen(),
-    );
-  }
-}
-
-class ExampleScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Unit Converter',
-      theme: ThemeData(
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-              displayColor: Colors.grey[600],
-            ),
-        // This colors the [InputOutlineBorder] when it is selected
-        primaryColor: Colors.grey[500],
-        textSelectionHandleColor: Colors.green[500],
-      ),
-      home: Text("HOLA"),
     );
   }
 }
@@ -61,6 +42,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentTabIndex = 0;
   FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 
   @override
@@ -84,10 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentTabIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffededed),
       body: Container(
         padding: EdgeInsets.all(15.0),
         child: Column(
@@ -113,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   flex: 1,
                   child: Card(
                     elevation: 3.0,
-                    color: const Color(0xff716999),
+                    color: const Color(0xffff7282),
                     child: InkWell(
                       child: Padding(
                        padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
@@ -122,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'KaushanScript',
-                            fontSize: 18.0,
+                            fontSize: 20.0,
                           ),
                         ),
                       ),
@@ -150,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: Card(
                               elevation: 3.0,
-                              color: Colors.pink,
+                              color: const Color(0xff65dad0),
                               child: InkWell(
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
@@ -159,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'KaushanScript',
+                                      fontSize: 18.0,
                                     ),
                                   ),
                                 ),
@@ -176,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: Card(
                               elevation: 3.0,
-                              color: Colors.red,
+                              color: const Color(0xfff3b163),
                               child: InkWell(
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
@@ -185,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'KaushanScript',
+                                      fontSize: 18.0,
                                     ),
                                   ),
                                 ),
@@ -220,68 +209,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
-                  child: Text(
-                    "Mis favoritos",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 15.0),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: const Color(0xff716999),
-              ),
-              child: Center(
-                child: Image(
-                  image: AssetImage('assets/images/marca.png'),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Favoritos'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return FavoritesScreen();
-                }));
-                //
-              },
-            ),
-            ListTile(
-              title: Text('Configuración'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return SettingsScreen();
-                }));
-              },
-            ),
-            ListTile(
-              title: Text('Cerrar sesión'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentTabIndex,
+        onTap: onTabTapped,
+        fixedColor: const Color(0xff716999),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            title: Text("Explorar"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            title: Text("Favoritos"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text("Configuración"),
+          ),
+        ],
       ),
     );
   }
