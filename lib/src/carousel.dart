@@ -25,7 +25,7 @@ class _CarouselState extends State<Carousel> {
     controller = PageController(
       initialPage: currentPage,
       keepPage: false,
-      viewportFraction: 0.75,
+      viewportFraction: 0.72,
     );
   }
 
@@ -38,8 +38,14 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*appBar: AppBar(
+        backgroundColor: const Color(0xfffafafa),
+        title: Text("Galería", style: TextStyle(color: Colors.black, fontFamily: 'Roboto',fontSize: 25.0),),
+        toolbarOpacity: 0.0,
+        elevation: 0.0,
+      ),*/
       body: StreamBuilder(
-        stream: Firestore.instance.collection(widget.category).snapshots(),
+        stream: Firestore.instance.collection("gallery").snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Container(

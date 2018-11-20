@@ -68,7 +68,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onTabTapped(int index) {
     setState(() {
-      _currentTabIndex = index;
+      switch (index) {
+        case 1:
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) {
+                return FavoritesScreen();
+              }));
+          break;
+        case 2:
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) {
+                return SettingsScreen();
+              }));
+          break;
+        default:
+          // do nothing;
+      }
     });
   }
 
