@@ -125,25 +125,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        onTap: onTabTapped,
-        fixedColor: const Color(0xff716999),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            title: Text("Explorar"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            title: Text("Favoritos"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text("Configuración"),
-          ),
-        ],
-      ),
     );
   }
 

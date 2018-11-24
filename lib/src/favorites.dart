@@ -86,25 +86,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        onTap: onTabTapped,
-        fixedColor: const Color(0xff716999),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            title: Text("Explorar"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text("Favoritos"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text("Configuración"),
-          ),
-        ],
-      ),
     );
   }
 }

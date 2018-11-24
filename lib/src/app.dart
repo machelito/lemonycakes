@@ -16,6 +16,8 @@ part 'item.dart';
 part 'login.dart';
 part 'settings.dart';
 
+enum TabItem { explore, favorites, settings }
+
 class LemonyCakesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class LemonyCakesApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return new MaterialApp(
+    return MaterialApp (
       debugShowCheckedModeBanner: false,
       title: 'Lemony Cakes',
       theme: ThemeData(
@@ -43,6 +45,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentTabIndex = 0;
+  TabItem currentTab = TabItem.explore;
   FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 
   @override
@@ -67,28 +70,62 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onTabTapped(int index) {
-    setState(() {
-      switch (index) {
-        case 1:
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) {
-                return FavoritesScreen();
-              }));
-          break;
-        case 2:
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) {
-                return SettingsScreen();
-              }));
-          break;
-        default:
-          // do nothing;
-      }
+    setState((){
+      _currentTabIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: new Stack(
+        children: <Widget>[
+          Offstage(
+            offstage: _currentTabIndex != 0,
+            child: TickerMode(
+              enabled: _currentTabIndex == 0,
+              child: MaterialApp(home: _buildBody()),
+            ),
+          ),
+          Offstage(
+            offstage: _currentTabIndex != 1,
+            child: TickerMode(
+              enabled: _currentTabIndex == 1,
+              child: MaterialApp(home: FavoritesScreen()),
+            ),
+          ),
+          Offstage(
+            offstage: _currentTabIndex != 2,
+            child: TickerMode(
+              enabled: _currentTabIndex == 2,
+              child: MaterialApp(home: SettingsScreen()),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentTabIndex,
+        onTap: onTabTapped,
+        fixedColor: const Color(0xff716999),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            title: Text("Explorar"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            title: Text("Favoritos"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text("Configuración"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBody() {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(15.0),
@@ -118,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: const Color(0xffff7282),
                     child: InkWell(
                       child: Padding(
-                       padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
+                        padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
                         child: Text(
                           "Galería",
                           style: TextStyle(
@@ -168,10 +205,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                    return Carousel(
-                                      category: 'cakes',
-                                    );
-                                  }));
+                                        return Carousel(
+                                          category: 'cakes',
+                                        );
+                                      }));
                                 },
                               ),
                             ),
@@ -181,8 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               elevation: 3.0,
                               color: const Color(0xfff3b163),
                               child: InkWell(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
                                   child: Text(
                                     "Tutoriales",
                                     style: TextStyle(
@@ -227,25 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentTabIndex,
-        onTap: onTabTapped,
-        fixedColor: const Color(0xff716999),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            title: Text("Explorar"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            title: Text("Favoritos"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text("Configuración"),
-          ),
-        ],
-      ),
     );
   }
+
 }
