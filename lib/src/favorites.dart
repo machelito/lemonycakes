@@ -17,27 +17,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     });
   }
 
-  void onTabTapped(int index) {
-    setState(() {
-      switch (index) {
-        case 0:
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) {
-                return HomeScreen();
-              }));
-          break;
-        case 2:
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) {
-                return SettingsScreen();
-              }));
-          break;
-        default:
-        // do nothing;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +29,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 20.0),
                   child: Text(
-                    "Mis favoritos",
+                    allTranslations.text('favorites'),
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Roboto',

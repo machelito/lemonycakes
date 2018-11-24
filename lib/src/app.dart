@@ -1,5 +1,7 @@
 library app;
 
+import 'dart:async';
+import 'dart:convert';
 import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +9,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 part 'backdrop.dart';
 part 'carousel.dart';
 part 'detail.dart';
+part 'explore.dart';
 part 'favorites.dart';
 part 'item.dart';
 part 'login.dart';
 part 'settings.dart';
-
-enum TabItem { explore, favorites, settings }
+part 'translations.dart';
 
 class LemonyCakesApp extends StatelessWidget {
   @override
@@ -27,6 +31,11 @@ class LemonyCakesApp extends StatelessWidget {
     ]);
     return MaterialApp (
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: allTranslations.supportedLocales(),
       title: 'Lemony Cakes',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -45,7 +54,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentTabIndex = 0;
-  TabItem currentTab = TabItem.explore;
   FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 
   @override
@@ -78,13 +86,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new Stack(
+      body: Stack(
         children: <Widget>[
           Offstage(
             offstage: _currentTabIndex != 0,
             child: TickerMode(
               enabled: _currentTabIndex == 0,
-              child: MaterialApp(home: _buildBody()),
+              child: MaterialApp(home: ExploreScreen()),
             ),
           ),
           Offstage(
@@ -98,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             offstage: _currentTabIndex != 2,
             child: TickerMode(
               enabled: _currentTabIndex == 2,
-              child: MaterialApp(home: SettingsScreen()),
+              child: MaterialApp(home: SettingsScreen(parent: this,)),
             ),
           ),
         ],
@@ -110,159 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.explore),
-            title: Text("Explorar"),
+            title: Text(allTranslations.text('explore')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            title: Text("Favoritos"),
+            title: Text(allTranslations.text('favorites')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text("Configuración"),
+            title: Text(allTranslations.text('settings')),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildBody() {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
-                  child: Text(
-                    "Explorar",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 25.0),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    elevation: 3.0,
-                    color: const Color(0xffff7282),
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                        child: Text(
-                          "Galería",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'KaushanScript',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) {
-                              return Carousel(
-                                category: 'cakes',
-                              );
-                            }));
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Card(
-                              elevation: 3.0,
-                              color: const Color(0xff65dad0),
-                              child: InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                                  child: Text(
-                                    "Recetas",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'KaushanScript',
-                                      fontSize: 18.0,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                        return Carousel(
-                                          category: 'cakes',
-                                        );
-                                      }));
-                                },
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Card(
-                              elevation: 3.0,
-                              color: const Color(0xfff3b163),
-                              child: InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                                  child: Text(
-                                    "Tutoriales",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'KaushanScript',
-                                      fontSize: 18.0,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                        return Carousel(
-                                          category: 'cakes',
-                                        );
-                                      }));
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
-                  child: Text(
-                    "Populares",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 15.0),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

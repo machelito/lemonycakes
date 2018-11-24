@@ -4,6 +4,9 @@ description: Lemony Cakes mobile application.
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: ^0.4.3
   cloud_firestore: ^0.8.0
   cupertino_icons: ^0.1.2
   url_launcher: ^3.0.3
@@ -35,6 +38,9 @@ flutter:
     - assets/images/youtube.jpg
     - assets/images/rainbowcake.jpg
     - assets/images/unicornio.jpg
+    - assets/locale/i18n_en.json
+    - assets/locale/i18n_es.json
+    - assets/locale/i18n_zh.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
