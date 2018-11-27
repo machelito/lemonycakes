@@ -22,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void handleRadioValueChanged(int value) async {
     String selectedLanguage = allTranslations.getSupportedLanguages()[value];
-    await allTranslations.setNewLanguage(selectedLanguage);
+    await allTranslations.setNewLanguage(selectedLanguage, true);
     setState(() {
       _radioValue = value;
       widget.parent.setState((){});

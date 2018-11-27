@@ -39,6 +39,7 @@ class LemonyCakesApp extends StatelessWidget {
       title: 'Lemony Cakes',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        primaryColor: const Color(0xff716999),
         canvasColor: const Color(0xfffafafa),
         fontFamily: 'Roboto',
       ),
@@ -92,21 +93,21 @@ class _HomeScreenState extends State<HomeScreen> {
             offstage: _currentTabIndex != 0,
             child: TickerMode(
               enabled: _currentTabIndex == 0,
-              child: MaterialApp(home: ExploreScreen()),
+              child: ExploreScreen(),
             ),
           ),
           Offstage(
             offstage: _currentTabIndex != 1,
             child: TickerMode(
               enabled: _currentTabIndex == 1,
-              child: MaterialApp(home: FavoritesScreen()),
+              child: FavoritesScreen(),
             ),
           ),
           Offstage(
             offstage: _currentTabIndex != 2,
             child: TickerMode(
               enabled: _currentTabIndex == 2,
-              child: MaterialApp(home: SettingsScreen(parent: this,)),
+              child: SettingsScreen(parent: this,),
             ),
           ),
         ],
