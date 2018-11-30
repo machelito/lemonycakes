@@ -6,14 +6,14 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(screenPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
                   child: Text(
                     allTranslations.text('explore'),
                     style: TextStyle(
@@ -123,9 +123,7 @@ class ExploreScreen extends StatelessWidget {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                        return Carousel(
-                                          category: 'cakes',
-                                        );
+                                        return RecipesScreen();
                                       }));
                                 },
                               ),

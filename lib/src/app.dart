@@ -19,6 +19,7 @@ part 'explore.dart';
 part 'favorites.dart';
 part 'item.dart';
 part 'login.dart';
+part 'recipes.dart';
 part 'settings.dart';
 part 'translations.dart';
 part 'tutorials.dart';
@@ -136,3 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 }
+
+const double screenPadding = 15.0;
+const double titlePaddingTop = 35.0;
+const double titlePaddingLeft = 0.0;
+const double titlePaddingRight = 0.0;

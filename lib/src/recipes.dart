@@ -1,6 +1,6 @@
 part of app;
 
-class TutorialsScreen extends StatelessWidget {
+class RecipesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,9 @@ class TutorialsScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 0.0),
                   child: Text(
-                    allTranslations.text('tutorials'),
+                    allTranslations.text('recipes'),
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Roboto',
@@ -25,14 +25,13 @@ class TutorialsScreen extends StatelessWidget {
               ],
             ),
             Flexible(
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(14, (index) {
-                    return Text(
-                      'Item $index',
-                    );
-                  }
-                ),
+              child: ListView.builder(
+                itemCount: 14,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text("Receta $index"),
+                  );
+                },
               ),
             ),
           ],

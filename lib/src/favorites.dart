@@ -21,7 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(screenPadding),
         child: ListView(
           children: <Widget>[
             Row(

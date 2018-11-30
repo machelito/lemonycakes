@@ -50,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
                   child: Text(
                     allTranslations.text('settings'),
                     style: TextStyle(
