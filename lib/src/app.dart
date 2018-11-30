@@ -21,6 +21,7 @@ part 'item.dart';
 part 'login.dart';
 part 'settings.dart';
 part 'translations.dart';
+part 'tutorials.dart';
 
 class LemonyCakesApp extends StatelessWidget {
   @override
