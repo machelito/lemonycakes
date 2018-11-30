@@ -18,10 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.all(50.0),
             decoration: BoxDecoration (
               color: const Color(0xff716999),
-              image: new DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                image: new AssetImage(
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                image: AssetImage(
                   'assets/images/rainbowcake.jpg',
                 ),
               ),

@@ -13,7 +13,7 @@ class ExploreScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 20.0),
                   child: Text(
                     allTranslations.text('explore'),
                     style: TextStyle(
@@ -150,9 +150,7 @@ class ExploreScreen extends StatelessWidget {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                        return Carousel(
-                                          category: 'cakes',
-                                        );
+                                        return TutorialsScreen();
                                       }));
                                 },
                               ),
@@ -168,7 +166,7 @@ class ExploreScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 10.0),
                   child: Text(
                     allTranslations.text('trending'),
                     style: TextStyle(
@@ -179,7 +177,75 @@ class ExploreScreen extends StatelessWidget {
                 ),
               ],
             ),
+            Expanded(
+              flex: 1,
+              child: StreamBuilder(
+                  stream: Firestore.instance.collection("gallery").where("trending", isEqualTo: true).snapshots(),
+                  builder: (context, snapshot) {
+                    return Row(
+                      children: List.generate(snapshot.data.documents.length, (index) {
+                        int last = snapshot.data.documents.length - 1;
+                        return TrendingItem(
+                          item: Item(
+                            id: snapshot.data.documents[last - index].documentID,
+                            imageUrl:  snapshot.data.documents[last - index]['image_url'],
+                            text: snapshot.data.documents[last - index]['text'],
+                            facebookUrl: snapshot.data.documents[last - index]['facebook_url'],
+                            name: snapshot.data.documents[last - index]['name'],
+                            tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
+                          ),
+                        );
+                      }),
+                    );
+                  }
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+}
+
+
+class TrendingItem extends StatelessWidget {
+
+  final Item item;
+
+  const TrendingItem({
+    Key key,
+    @required this.item,
+  })
+    : assert(item != null),
+      super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Card(
+        elevation: 3.0,
+        child: InkWell(
+          child: Hero(
+            tag: this.item.tag,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.network(
+                this.item.imageUrl,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) {
+                  return Backdrop(
+                    item: this.item,
+                    //favorite: true,
+                  );
+                }));
+          },
         ),
       ),
     );

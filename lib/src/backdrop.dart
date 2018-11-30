@@ -154,7 +154,7 @@ class _BackdropState extends State<Backdrop>
     ).animate(_controller.view);
 
     return Hero(
-      tag: widget.item.name,
+      tag: widget.item.tag,
       child: Container(
         key: _backdropKey,
         child: Stack(

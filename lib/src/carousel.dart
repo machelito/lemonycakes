@@ -38,12 +38,6 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: const Color(0xfffafafa),
-        title: Text("Galería", style: TextStyle(color: Colors.black, fontFamily: 'Roboto',fontSize: 25.0),),
-        toolbarOpacity: 0.0,
-        elevation: 0.0,
-      ),*/
       body: StreamBuilder(
         stream: Firestore.instance.collection("gallery").snapshots(),
         builder: (context, snapshot) {
@@ -73,7 +67,7 @@ class _CarouselState extends State<Carousel> {
               ),
             );
           }
-          return new PageView.builder(
+          return PageView.builder(
             itemCount: snapshot.data.documents.length,
             onPageChanged: (value) {
               setState(() {
@@ -88,10 +82,12 @@ class _CarouselState extends State<Carousel> {
                 animation: controller,
                 child: AnimatedItem(
                   item: Item(
+                    id: ds.documentID,
                     imageUrl: ds['image_url'],
                     text: ds['text'],
                     facebookUrl: ds['facebook_url'],
                     name: ds['name'],
+                    tag: ds.documentID,
                   ),
                 ),
                 builder: (context, child) {
@@ -155,7 +151,7 @@ class _AnimatedItemState extends State<AnimatedItem> {
             children: [
               Center(
                 child: Hero(
-                  tag: widget.item.name,
+                  tag: widget.item.tag,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
