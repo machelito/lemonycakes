@@ -7,6 +7,7 @@ class ExploreScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
+        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -18,7 +19,6 @@ class ExploreScreen extends StatelessWidget {
                     allTranslations.text('explore'),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Roboto',
                         fontSize: 25.0),
                   ),
                 ),
@@ -47,7 +47,8 @@ class ExploreScreen extends StatelessWidget {
                         Navigator.push(context,
                           MaterialPageRoute(builder: (_) {
                             return GalleryScreen();
-                          }));
+                          })
+                        );
                       },
                     ),
                   ),
@@ -80,9 +81,10 @@ class ExploreScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                        return RecipesScreen();
-                                      }));
+                                    MaterialPageRoute(builder: (_) {
+                                      return RecipesScreen();
+                                    })
+                                  );
                                 },
                               ),
                             ),
@@ -105,9 +107,10 @@ class ExploreScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                        return TutorialsScreen();
-                                      }));
+                                    MaterialPageRoute(builder: (_) {
+                                      return TutorialsScreen();
+                                    })
+                                  );
                                 },
                               ),
                             ),
@@ -127,7 +130,6 @@ class ExploreScreen extends StatelessWidget {
                     allTranslations.text('trending'),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Roboto',
                         fontSize: 15.0),
                   ),
                 ),
@@ -136,24 +138,34 @@ class ExploreScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: StreamBuilder(
-                  stream: Firestore.instance.collection("gallery").where("trending", isEqualTo: true).snapshots(),
-                  builder: (context, snapshot) {
+                stream: Firestore.instance.collection("gallery").where("trending", isEqualTo: true).snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
                     return Row(
-                      children: List.generate(snapshot.data.documents.length, (index) {
-                        int last = snapshot.data.documents.length - 1;
-                        return TrendingItem(
-                          item: Item(
-                            id: snapshot.data.documents[last - index].documentID,
-                            imageUrl:  snapshot.data.documents[last - index]['image_url'],
-                            text: snapshot.data.documents[last - index]['text'],
-                            facebookUrl: snapshot.data.documents[last - index]['facebook_url'],
-                            name: snapshot.data.documents[last - index]['name'],
-                            tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
-                          ),
-                        );
-                      }),
+                      children: <Widget>[
+                        Text(
+                          'Cargando...',
+                        ),
+                      ],
                     );
                   }
+
+                  return Row(
+                    children: List.generate(snapshot.data.documents.length, (index) {
+                      int last = snapshot.data.documents.length - 1;
+                      return TrendingItem(
+                        item: Item(
+                          id: snapshot.data.documents[last - index].documentID,
+                          imageUrl:  snapshot.data.documents[last - index]['image_url'],
+                          text: snapshot.data.documents[last - index]['text'],
+                          facebookUrl: snapshot.data.documents[last - index]['facebook_url'],
+                          title: snapshot.data.documents[last - index]['title'],
+                          tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
+                        ),
+                      );
+                    }),
+                  );
+                }
               ),
             ),
           ],
@@ -195,12 +207,12 @@ class TrendingItem extends StatelessWidget {
           ),
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (_) {
-                  return Backdrop(
-                    item: this.item,
-                    //favorite: true,
-                  );
-                }));
+              MaterialPageRoute(builder: (_) {
+                return Backdrop(
+                  item: this.item,
+                );
+              })
+            );
           },
         ),
       ),

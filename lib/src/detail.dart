@@ -81,7 +81,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Container(
       child: Hero(
-        tag: widget.item.name,
+        tag: widget.item.title,
         child: Container(
           alignment: Alignment.center,
           width: width.value,
@@ -154,7 +154,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          widget.item.name,
+                                          widget.item.title,
                                           style: TextStyle(
                                             fontFamily: 'KaushanScript',
                                             fontSize: 25.0,

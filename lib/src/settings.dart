@@ -43,7 +43,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(screenPadding),
+        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

@@ -176,7 +176,7 @@ class _BackdropState extends State<Backdrop>
                 onVerticalDragUpdate: _handleDragUpdate,
                 onVerticalDragEnd: _handleDragEnd,
                 title: Text(
-                  widget.item.name,
+                  widget.item.title,
                   style: TextStyle(
                     fontFamily: 'KaushanScript',
                     fontSize: 25.0,

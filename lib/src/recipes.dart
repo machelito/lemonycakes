@@ -6,7 +6,8 @@ class RecipesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(screenPadding),
+        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -18,24 +19,72 @@ class RecipesScreen extends StatelessWidget {
                     allTranslations.text('recipes'),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Roboto',
                         fontSize: 25.0),
                   ),
                 ),
               ],
             ),
             Flexible(
-              child: ListView.builder(
-                itemCount: 14,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text("Receta $index"),
+              child: StreamBuilder(
+                stream: Firestore.instance.collection("recipes").snapshots(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) return Text("Loading...");
+                  return ListView.builder(
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Recipe(
+                        item: Item.fromSnapshot(snapshot.data.documents[index]),
+                      );
+                    },
                   );
-                },
+                }
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+}
+
+class Recipe extends StatelessWidget {
+
+  final Item item;
+
+  const Recipe({
+    Key key,
+    @required this.item,
+  })
+    : assert(item != null),
+      super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3.0,
+      child: ListTile(
+        title: Text(
+          item.title,
+          style: TextStyle(
+            fontFamily: 'KaushanScript',
+            fontSize: 20.0,
+          ),
+        ),
+        subtitle: Text(item.subtitle),
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          color: Colors.black26,
+          size: 30.0,
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return DetailScreen(
+              item: item,
+              favorite: false,
+            );
+          }));
+        },
       ),
     );
   }

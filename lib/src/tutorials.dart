@@ -6,7 +6,8 @@ class TutorialsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(screenPadding),
+        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -18,21 +19,29 @@ class TutorialsScreen extends StatelessWidget {
                     allTranslations.text('tutorials'),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Roboto',
                         fontSize: 25.0),
                   ),
                 ),
               ],
             ),
             Flexible(
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(14, (index) {
-                    return Text(
-                      'Item $index',
-                    );
-                  }
-                ),
+              child: StreamBuilder(
+                stream: Firestore.instance.collection("tutorials").snapshots(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) return Text("Loading...");
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0,
+                    padding: EdgeInsets.all(4.0),
+                    childAspectRatio: 1.0,
+                    children: List.generate(snapshot.data.documents.length, (index) {
+                      return Tutorial(
+                        item: Item.fromSnapshot(snapshot.data.documents[index]),
+                      );
+                    })
+                  );
+                },
               ),
             ),
           ],
@@ -41,4 +50,56 @@ class TutorialsScreen extends StatelessWidget {
     );
   }
 
+}
+
+class Tutorial extends StatelessWidget {
+
+  final Item item;
+
+  const Tutorial({
+    Key key,
+    @required this.item,
+  })
+    : assert(item != null),
+      super(key: key);
+
+  void _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridTile(
+      child: GestureDetector(
+        onTap: () {
+          _launchURL(item.youtubeUrl);
+        },
+        child: Stack(
+          children: <Widget>[
+            Image.network(
+              this.item.imageUrl,
+              fit: BoxFit.fill,
+            ),
+          ],
+        ),
+      ),
+      footer: GridTileBar(
+        backgroundColor: Colors.black38,
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          child: Text(
+            item.title,
+            style: TextStyle(
+              fontFamily: 'KaushanScript',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

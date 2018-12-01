@@ -1,10 +1,8 @@
 part of app;
 
 class FavoritesScreen extends StatefulWidget {
-
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
-
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
@@ -22,6 +20,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
+        decoration: background,
         child: ListView(
           children: <Widget>[
             Row(
@@ -32,39 +31,45 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     allTranslations.text('favorites'),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Roboto',
                         fontSize: 25.0),
                   ),
                 ),
               ],
             ),
-            ListTile(
-              title: Text("Favorito 1"),
-              trailing: IconButton(
-                icon: (_isFavorited
-                    ? Icon(Icons.favorite)
-                    : Icon(Icons.favorite_border)),
-                color: (_isFavorited
-                    ? Colors.pinkAccent
-                    : Colors.white),
-                onPressed: _toggleFavorite,
-              ),
-            ),
-            ListTile(
-              title: Text("Favorito 2"),
-              trailing: IconButton(
-                icon: (_isFavorited
-                    ? Icon(Icons.favorite)
-                    : Icon(Icons.favorite_border)),
-                color: (_isFavorited
-                    ? Colors.pinkAccent
-                    : Colors.white),
-                onPressed: _toggleFavorite,
-              ),
-            ),
+            Favorite(),
+            Favorite(),Favorite(),Favorite(),Favorite(),Favorite(),Favorite(),
           ],
         ),
       ),
     );
   }
+}
+
+class Favorite extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3.0,
+      child: ListTile(
+        title: Text(
+          "Favorito",
+          style: TextStyle(
+            fontFamily: 'KaushanScript',
+            fontSize: 20.0,
+          ),
+        ),
+
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          color: Colors.black26,
+          size: 30.0,
+        ),
+        onTap: () {
+
+        },
+      ),
+    );
+  }
+
 }

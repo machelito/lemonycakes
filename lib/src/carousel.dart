@@ -1,16 +1,6 @@
 part of app;
 
 class Carousel extends StatefulWidget {
-
-  final String category;
-
-  const Carousel({
-    Key key,
-    @required this.category,
-  })
-    : assert(category != null),
-      super(key: key);
-
   @override
   _CarouselState createState() => _CarouselState();
 }
@@ -38,6 +28,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: StreamBuilder(
         stream: Firestore.instance.collection("gallery").snapshots(),
         builder: (context, snapshot) {
@@ -81,14 +72,7 @@ class _CarouselState extends State<Carousel> {
               return AnimatedBuilder(
                 animation: controller,
                 child: AnimatedItem(
-                  item: Item(
-                    id: ds.documentID,
-                    imageUrl: ds['image_url'],
-                    text: ds['text'],
-                    facebookUrl: ds['facebook_url'],
-                    name: ds['name'],
-                    tag: ds.documentID,
-                  ),
+                  item: Item.fromSnapshot(ds),
                 ),
                 builder: (context, child) {
                   double value = 1.0;
@@ -166,7 +150,7 @@ class _AnimatedItemState extends State<AnimatedItem> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    widget.item.name,
+                    widget.item.title,
                     style: TextStyle(
                         fontFamily: 'KaushanScript',
                         fontSize: 25.0,
