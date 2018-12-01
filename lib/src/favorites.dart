@@ -21,12 +21,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       body: Container(
         padding: EdgeInsets.all(screenPadding),
         decoration: background,
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 0.0),
                   child: Text(
                     allTranslations.text('favorites'),
                     style: TextStyle(
@@ -36,8 +37,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 ),
               ],
             ),
-            Favorite(),
-            Favorite(),Favorite(),Favorite(),Favorite(),Favorite(),Favorite(),
+            Flexible(
+              child: StreamBuilder(
+                stream: Firestore.instance.collection("recipes").snapshots(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) return Text("Loading...");
+                  return ListView.builder(
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Favorite();
+                    },
+                  );
+                }
+              ),
+            ),
           ],
         ),
       ),
