@@ -21,7 +21,7 @@ class Item {
     this.imageUrl,
     this.facebookUrl,
     this.instagramUrl,
-    this.youtubeUrl
+    this.youtubeUrl,
   });
 
   Item.fromSnapshot(DocumentSnapshot snapshot) {

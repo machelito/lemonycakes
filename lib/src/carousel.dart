@@ -36,7 +36,7 @@ class _CarouselState extends State<Carousel> {
             return Container(
               child: Center(
                 child: Text(
-                  'Cargando...',
+                  allTranslations.text('loading'),
                   style: TextStyle(
                       fontFamily: 'KaushanScript',
                       fontSize: 25.0,
@@ -73,6 +73,7 @@ class _CarouselState extends State<Carousel> {
                 animation: controller,
                 child: AnimatedItem(
                   item: Item.fromSnapshot(ds),
+                  favorite: ds['users_favorite'].toString().contains(user.uid),
                 ),
                 builder: (context, child) {
                   double value = 1.0;
@@ -103,13 +104,15 @@ class _CarouselState extends State<Carousel> {
 class AnimatedItem extends StatefulWidget {
 
   final Item item;
+  final bool favorite;
 
   const AnimatedItem({
     Key key,
     @required this.item,
+    @required this.favorite,
   })
-      : assert(item != null),
-        super(key: key);
+    : assert(item != null),
+      super(key: key);
 
 
   @override
@@ -118,11 +121,34 @@ class AnimatedItem extends StatefulWidget {
 
 class _AnimatedItemState extends State<AnimatedItem> {
 
-  bool _isFavorited = false;
+  bool _isFavorite;
+  DocumentReference documentReference;
+  List<String> usersFavorite;
 
   void _toggleFavorite() {
     setState(() {
-      _isFavorited = !_isFavorited;
+      _isFavorite = !_isFavorite;
+      if(_isFavorite) {
+        usersFavorite.add(user.uid);
+      } else {
+        usersFavorite.remove(user.uid);
+      }
+      print(usersFavorite);
+      documentReference.updateData(
+        {
+          "users_favorite" : usersFavorite,
+        }
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _isFavorite = widget.favorite;
+    documentReference = Firestore.instance.document("gallery/"+widget.item.id);
+    documentReference.get().then((snapshot) {
+      usersFavorite = List<String>.from(snapshot['users_favorite']);
     });
   }
 
@@ -161,10 +187,10 @@ class _AnimatedItemState extends State<AnimatedItem> {
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                  icon: (_isFavorited
+                  icon: (_isFavorite
                       ? Icon(Icons.favorite)
                       : Icon(Icons.favorite_border)),
-                  color: (_isFavorited
+                  color: (_isFavorite
                       ? Colors.pinkAccent
                       : Colors.white),
                   onPressed: _toggleFavorite,

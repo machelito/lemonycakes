@@ -142,14 +142,19 @@ class ExploreScreen extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Cargando...',
+                          allTranslations.text('loading'),
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: 'KaushanScript',
+                            fontSize: 20.0,
+                          ),
                         ),
                       ],
                     );
                   }
-
                   return Row(
                     children: List.generate(snapshot.data.documents.length, (index) {
                       int last = snapshot.data.documents.length - 1;

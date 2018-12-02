@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'backdrop.dart';
 part 'carousel.dart';
@@ -26,7 +27,18 @@ part 'settings.dart';
 part 'translations.dart';
 part 'tutorials.dart';
 
+FirebaseUser user;
+
 class LemonyCakesApp extends StatelessWidget {
+
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  Future<FirebaseUser> signInAnonymously() async{
+    user = await firebaseAuth.signInAnonymously();
+    print("Signed in as ${user.uid}");
+    return user;
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -40,16 +52,44 @@ class LemonyCakesApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: allTranslations.supportedLocales(),
-      title: 'Lemony Cakes',
+      title: allTranslations.text('app_title'),
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         primaryColor: const Color(0xff716999),
         canvasColor: const Color(0xfffafafa),
         fontFamily: 'Roboto',
       ),
-      home: LoginScreen(),
+      home: _handleLogin(),
     );
   }
+
+  Widget _handleLogin() {
+    return new StreamBuilder<FirebaseUser>(
+        stream: firebaseAuth.onAuthStateChanged,
+        builder: (BuildContext context, snapshot) {
+          if (!snapshot.hasData) {
+            signInAnonymously();
+            return Scaffold(
+              backgroundColor: const Color(0xff716999),
+              body: Center(
+                child: Text(
+                  allTranslations.text('loading'),
+                  style: TextStyle(
+                    fontFamily: 'KaushanScript',
+                    fontSize: 25.0,
+                    color: Colors.white
+                  ),
+                ),
+              ),
+            );
+          } else {
+            user = snapshot.data;
+            return HomeScreen();
+          }
+        }
+    );
+  }
+
 }
 
 const double screenPadding = 15.0;

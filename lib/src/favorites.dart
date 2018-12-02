@@ -7,14 +7,6 @@ class FavoritesScreen extends StatefulWidget {
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
 
-  bool _isFavorited = true;
-
-  void _toggleFavorite() {
-    setState(() {
-      _isFavorited = !_isFavorited;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +31,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ),
             Flexible(
               child: StreamBuilder(
-                stream: Firestore.instance.collection("recipes").snapshots(),
+                stream: Firestore.instance.collection("gallery").where("users_favorite", arrayContains: user.uid).snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) return Text("Loading...");
                   return ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Favorite();
+                      return Favorite(
+                        item: Item.fromSnapshot(snapshot.data.documents[index]),
+                      );
                     },
                   );
                 }
@@ -60,14 +54,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
 class Favorite extends StatelessWidget {
 
+  final Item item;
+
+  const Favorite({
+    Key key,
+    @required this.item,
+  })
+      : assert(item != null),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 3.0,
       child: ListTile(
         title: Text(
-          "Favorito",
+          item.title,
           style: TextStyle(
+            color: Colors.black54,
             fontFamily: 'KaushanScript',
             fontSize: 20.0,
           ),

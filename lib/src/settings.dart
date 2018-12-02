@@ -19,6 +19,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
 
   int _radioValue = 1;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   void handleRadioValueChanged(int value) async {
     String selectedLanguage = allTranslations.getSupportedLanguages()[value];
