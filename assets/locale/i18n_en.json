@@ -2,9 +2,10 @@
   "app_title": "Lemony Cakes",
   "explore": "Explore",
   "favorites": "Favorites",
+  "gallery": "Gallery",
+  "loading": "Loading...",
+  "recipes": "Recipes",
   "settings": "Settings",
   "trending": "Trending",
-  "gallery": "Gallery",
-  "recipes": "Recipes",
   "tutorials": "Tutorials"
 }
