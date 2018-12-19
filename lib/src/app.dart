@@ -96,11 +96,12 @@ const double screenPadding = 15.0;
 const double titlePaddingTop = 35.0;
 const double titlePaddingLeft = 0.0;
 const double titlePaddingRight = 0.0;
+const double iconSize = 36.0;
 
 const BoxDecoration background = BoxDecoration(
   image: DecorationImage(
     image: AssetImage(
-      "assets/images/marca.png",
+      "assets/images/marca4.png",
     ),
     fit: BoxFit.contain,
   ),

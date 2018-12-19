@@ -211,7 +211,7 @@ class _BackdropState extends State<Backdrop>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Ver en facebook",
+                              allTranslations.text('link'),
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 15.0,
@@ -219,12 +219,33 @@ class _BackdropState extends State<Backdrop>
                               ),
                             ),
                           ),
-                          IconButton(
-                            icon: Icon(Icons.launch),
-                            color: Colors.grey,
-                            onPressed: () {
-                              _launchURL(widget.item.facebookUrl);
-                            },
+                          Visibility(
+                            child: SizedBox(
+                              child: IconButton(
+                                icon:  Image.asset('assets/images/facebook.png'),
+                                color: Colors.grey,
+                                onPressed: () {
+                                  _launchURL(widget.item.facebookUrl);
+                                },
+                              ),
+                              height: iconSize,
+                              width: iconSize,
+                            ),
+                            visible: widget.item.facebookUrl != null,
+                          ),
+                          Visibility(
+                            child: SizedBox(
+                              child: IconButton(
+                                icon:  Image.asset('assets/images/instagram.png'),
+                                color: Colors.grey,
+                                onPressed: () {
+                                  _launchURL(widget.item.instagramUrl);
+                                },
+                              ),
+                              height: iconSize,
+                              width: iconSize,
+                            ),
+                            visible: widget.item.instagramUrl != null,
                           ),
                         ],
                       ),

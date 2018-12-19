@@ -164,6 +164,7 @@ class ExploreScreen extends StatelessWidget {
                           imageUrl:  snapshot.data.documents[last - index]['image_url'],
                           text: snapshot.data.documents[last - index]['text'],
                           facebookUrl: snapshot.data.documents[last - index]['facebook_url'],
+                          instagramUrl: snapshot.data.documents[last - index]['instagram_url'],
                           title: snapshot.data.documents[last - index]['title'],
                           tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
                         ),

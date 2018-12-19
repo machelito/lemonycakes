@@ -33,7 +33,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               child: StreamBuilder(
                 stream: Firestore.instance.collection("gallery").where("users_favorite", arrayContains: user.uid).snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) return Text("Loading...");
+                  if (!snapshot.hasData) return Text(allTranslations.text('loading'));
                   return ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -76,14 +76,25 @@ class Favorite extends StatelessWidget {
             fontSize: 20.0,
           ),
         ),
-
+        leading: Icon(
+          Icons.favorite,
+          color: Colors.pink,
+          size: 30.0,
+        ),
         trailing: Icon(
           Icons.keyboard_arrow_right,
           color: Colors.black26,
           size: 30.0,
         ),
         onTap: () {
-
+          print("tap");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) {
+                return Backdrop(
+                  item: this.item,
+                );
+              })
+          );
         },
       ),
     );
