@@ -204,7 +204,7 @@ class _AnimatedItemState extends State<AnimatedItem> {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
           return Backdrop(
             item: widget.item,
-            //favorite: true,
+            favorite: _isFavorite,
           );
         }));
       },

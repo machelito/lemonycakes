@@ -62,10 +62,15 @@ class _BackdropPanel extends StatelessWidget {
 /// front or back panel is showing.
 class Backdrop extends StatefulWidget {
   final Item item;
+  final bool favorite;
 
   const Backdrop({
+    Key key,
     @required this.item,
-  })  : assert(item != null);
+    @required this.favorite,
+  })  : assert(item != null),
+        assert(favorite != null),
+        super(key: key);
 
   @override
   _BackdropState createState() => _BackdropState();
@@ -95,6 +100,7 @@ class _BackdropState extends State<Backdrop>
   @override
   void initState() {
     super.initState();
+    _isFavorited = widget.favorite;
     _controller = AnimationController(
       duration: Duration(milliseconds: 300),
       value: 0.0,
@@ -175,13 +181,33 @@ class _BackdropState extends State<Backdrop>
                 onTap: _toggleBackdropPanelVisibility,
                 onVerticalDragUpdate: _handleDragUpdate,
                 onVerticalDragEnd: _handleDragEnd,
-                title: Text(
-                  widget.item.title,
-                  style: TextStyle(
-                    fontFamily: 'KaushanScript',
-                    fontSize: 25.0,
-                    color: Colors.black,
-                  ),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Text(
+                        widget.item.title,
+                        style: TextStyle(
+                          fontFamily: 'KaushanScript',
+                          fontSize: 25.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: IconButton(
+                        icon: (_isFavorited
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_border)),
+                        color: (_isFavorited
+                            ? Colors.pinkAccent
+                            : Colors.grey),
+                        onPressed: _toggleFavorite,
+                      ),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),

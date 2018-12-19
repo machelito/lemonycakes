@@ -168,6 +168,7 @@ class ExploreScreen extends StatelessWidget {
                           title: snapshot.data.documents[last - index]['title'],
                           tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
                         ),
+                        favorite: snapshot.data.documents[last - index]['users_favorite'].toString().contains(user.uid),
                       );
                     }),
                   );
@@ -186,10 +187,12 @@ class ExploreScreen extends StatelessWidget {
 class TrendingItem extends StatelessWidget {
 
   final Item item;
+  final bool favorite;
 
   const TrendingItem({
     Key key,
     @required this.item,
+    @required this.favorite,
   })
     : assert(item != null),
       super(key: key);
@@ -216,6 +219,7 @@ class TrendingItem extends StatelessWidget {
               MaterialPageRoute(builder: (_) {
                 return Backdrop(
                   item: this.item,
+                  favorite: this.favorite,
                 );
               })
             );

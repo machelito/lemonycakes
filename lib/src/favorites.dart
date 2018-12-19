@@ -92,6 +92,7 @@ class Favorite extends StatelessWidget {
               MaterialPageRoute(builder: (_) {
                 return Backdrop(
                   item: this.item,
+                  favorite: true,
                 );
               })
           );
