@@ -25,6 +25,7 @@ part 'login.dart';
 part 'recipes.dart';
 part 'settings.dart';
 part 'translations.dart';
+part 'trending.dart';
 part 'tutorials.dart';
 
 FirebaseUser user;
@@ -54,8 +55,8 @@ class LemonyCakesApp extends StatelessWidget {
       supportedLocales: allTranslations.supportedLocales(),
       title: allTranslations.text('app_title'),
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        primaryColor: const Color(0xff716999),
+        primarySwatch: Colors.grey,
+        primaryColor: const Color(0xffbebeee),
         canvasColor: const Color(0xfffafafa),
         fontFamily: 'Roboto',
       ),
@@ -70,7 +71,7 @@ class LemonyCakesApp extends StatelessWidget {
           if (!snapshot.hasData) {
             signInAnonymously();
             return Scaffold(
-              backgroundColor: const Color(0xff716999),
+              backgroundColor: const Color(0xfff4bdd8),
               body: Center(
                 child: Text(
                   allTranslations.text('loading'),
@@ -97,6 +98,29 @@ const double titlePaddingTop = 35.0;
 const double titlePaddingLeft = 0.0;
 const double titlePaddingRight = 0.0;
 const double iconSize = 36.0;
+const Color goldLogoColor = Color(0xffb5a628);
+const Color cardTextColor = Colors.black45;
+const Color textColor = Colors.black54;
+const Color galleryCard = Color(0xfff4bdd8);
+const Color recipesCard = Color(0xffade7eb);
+const Color tutorialsCard = Color(0xffbebeee);
+const Color customPink = Color(0xfff4bdd8);
+const Color customGreen = Color(0xffade7eb);
+const Color customPurple = Color(0xffbebeee);
+const Color customRed = Color(0xffdd95a6);
+const Color customBlue = Color(0xff9daff5);
+
+const TextStyle titleTextStyle = TextStyle(
+  color: goldLogoColor,
+  fontFamily: 'KaushanScript',
+  fontSize: 30.0,
+);
+
+const TextStyle cardTextStyle = TextStyle(
+  color: cardTextColor,
+  fontFamily: 'KaushanScript',
+  fontSize: 24.0,
+);
 
 const BoxDecoration background = BoxDecoration(
   image: DecorationImage(

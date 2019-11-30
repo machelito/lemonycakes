@@ -7,7 +7,7 @@ class RecipesScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
-        decoration: background,
+        //decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -17,9 +17,7 @@ class RecipesScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 0.0),
                   child: Text(
                     allTranslations.text('recipes'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0),
+                    style: titleTextStyle,
                   ),
                 ),
               ],
@@ -68,13 +66,14 @@ class Recipe extends StatelessWidget {
           item.title,
           style: TextStyle(
             fontFamily: 'KaushanScript',
+            color: textColor,
             fontSize: 20.0,
           ),
         ),
         subtitle: Text(item.subtitle),
         trailing: Icon(
           Icons.keyboard_arrow_right,
-          color: Colors.black26,
+          color: textColor,
           size: 30.0,
         ),
         onTap: () {

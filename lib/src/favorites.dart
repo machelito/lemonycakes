@@ -12,7 +12,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
-        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -22,9 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 0.0),
                   child: Text(
                     allTranslations.text('favorites'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0),
+                    style: titleTextStyle,
                   ),
                 ),
               ],

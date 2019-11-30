@@ -7,7 +7,7 @@ class TutorialsScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
-        decoration: background,
+        //decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -17,9 +17,7 @@ class TutorialsScreen extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
                   child: Text(
                     allTranslations.text('tutorials'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0),
+                    style: titleTextStyle,
                   ),
                 ),
               ],
@@ -80,21 +78,25 @@ class Tutorial extends StatelessWidget {
         },
         child: Stack(
           children: <Widget>[
-            Image.network(
-              this.item.imageUrl,
-              fit: BoxFit.fill,
+            ClipRRect(
+              borderRadius: new BorderRadius.circular(8.0),
+              child: Image.network(
+                this.item.imageUrl,
+                fit: BoxFit.fill,
+              ),
             ),
           ],
         ),
       ),
       footer: GridTileBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: customPurple,
         title: FittedBox(
           fit: BoxFit.scaleDown,
           alignment: Alignment.center,
           child: Text(
             item.title,
             style: TextStyle(
+              color: cardTextColor,
               fontFamily: 'KaushanScript',
             ),
           ),

@@ -6,7 +6,7 @@ class GalleryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: background,
+        //decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -16,13 +16,10 @@ class GalleryScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.fromLTRB(15.0, 55.0, 15.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 0.0),
                     child: Text(
                       allTranslations.text('gallery'),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Roboto',
-                          fontSize: 25.0),
+                      style: titleTextStyle,
                     ),
                   ),
                 ],

@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
-        decoration: background,
+        //decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -55,10 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
                   child: Text(
                     allTranslations.text('settings'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 25.0),
+                    style: titleTextStyle,
                   ),
                 ),
               ],
@@ -70,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   flex: 1,
                   child: Card(
                     elevation: 3.0,
-                    color: const Color(0xff47a7b1),
+                    color: customPink,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 30.0),
                       child: Column(
@@ -81,7 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: <Widget>[
                               Text(
                                 'English',
-                                style: TextStyle(fontSize: 20.0, color: Colors.white,fontFamily: 'KaushanScript',),
+                                style: TextStyle(fontSize: 20.0, color: cardTextColor, fontFamily: 'KaushanScript',),
                               ),
                               Radio(
                                 value: 0,
@@ -95,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: <Widget>[
                               Text(
                                 'Español',
-                                style: TextStyle(fontSize: 20.0, color: Colors.white,fontFamily: 'KaushanScript',),
+                                style: TextStyle(fontSize: 20.0, color: cardTextColor, fontFamily: 'KaushanScript',),
                               ),
                               Radio(
                                 value: 1,
@@ -109,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: <Widget>[
                               Text(
                                 '中文',
-                                style: TextStyle(fontSize: 20.0, color: Colors.white,fontFamily: 'KaushanScript',),
+                                style: TextStyle(fontSize: 20.0, color: cardTextColor, fontFamily: 'KaushanScript',),
                               ),
                               Radio(
                                 value: 2,
@@ -121,6 +118,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
+                  child: Text(
+                    "Contacto",
+                    style: titleTextStyle,
                   ),
                 ),
               ],

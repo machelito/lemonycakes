@@ -7,49 +7,49 @@ class ExploreScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(screenPadding),
-        decoration: background,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, titlePaddingTop, 0.0, 20.0),
-                  child: Text(
-                    allTranslations.text('explore'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0),
-                  ),
-                ),
-              ],
+            Container(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 40.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/marca.png',
+                        height: 100.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),)
             ),
+
             Row(
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: Card(
-                    elevation: 3.0,
-                    color: const Color(0xffff7282),
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                        child: Text(
-                          allTranslations.text('gallery'),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'KaushanScript',
-                            fontSize: 20.0,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                    child: Card(
+                      elevation: 3.0,
+                      color: galleryCard,
+                      child: InkWell(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
+                          child: Text(
+                            allTranslations.text('gallery'),
+                            style: cardTextStyle,
                           ),
                         ),
+                        onTap: () {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (_) {
+                              return GalleryScreen();
+                            })
+                          );
+                        },
                       ),
-                      onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (_) {
-                            return GalleryScreen();
-                          })
-                        );
-                      },
                     ),
                   ),
                 ),
@@ -64,54 +64,52 @@ class ExploreScreen extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Card(
-                              elevation: 3.0,
-                              color: const Color(0xff65dad0),
-                              child: InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                                  child: Text(
-                                    allTranslations.text('recipes'),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'KaushanScript',
-                                      fontSize: 18.0,
+                            child: Padding(
+                            padding: EdgeInsets.fromLTRB(0.0, 0.0, 2.5, 0.0),
+                              child: Card(
+                                elevation: 3.0,
+                                color: recipesCard,
+                                child: InkWell(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
+                                    child: Text(
+                                      allTranslations.text('recipes'),
+                                      style: cardTextStyle,
                                     ),
                                   ),
+                                  onTap: () {
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return RecipesScreen();
+                                      })
+                                    );
+                                  },
                                 ),
-                                onTap: () {
-                                  Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) {
-                                      return RecipesScreen();
-                                    })
-                                  );
-                                },
                               ),
                             ),
                           ),
                           Expanded(
-                            child: Card(
-                              elevation: 3.0,
-                              color: const Color(0xfff3b163),
-                              child: InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-                                  child: Text(
-                                    allTranslations.text('tutorials'),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'KaushanScript',
-                                      fontSize: 18.0,
+                            child: Padding(
+                            padding: EdgeInsets.fromLTRB(2.5, 0.0, 0.0, 0.0),
+                              child: Card(
+                                elevation: 3.0,
+                                color: tutorialsCard,
+                                child: InkWell(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
+                                    child: Text(
+                                      allTranslations.text('tutorials'),
+                                      style: cardTextStyle,
                                     ),
                                   ),
+                                  onTap: () {
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return TutorialsScreen();
+                                      })
+                                    );
+                                  },
                                 ),
-                                onTap: () {
-                                  Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) {
-                                      return TutorialsScreen();
-                                    })
-                                  );
-                                },
                               ),
                             ),
                           ),
@@ -121,59 +119,6 @@ class ExploreScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 10.0),
-                  child: Text(
-                    allTranslations.text('trending'),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.0),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: StreamBuilder(
-                stream: Firestore.instance.collection("gallery").where("trending", isEqualTo: true).snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          allTranslations.text('loading'),
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontFamily: 'KaushanScript',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                  return Row(
-                    children: List.generate(snapshot.data.documents.length, (index) {
-                      int last = snapshot.data.documents.length - 1;
-                      return TrendingItem(
-                        item: Item(
-                          id: snapshot.data.documents[last - index].documentID,
-                          imageUrl:  snapshot.data.documents[last - index]['image_url'],
-                          text: snapshot.data.documents[last - index]['text'],
-                          facebookUrl: snapshot.data.documents[last - index]['facebook_url'],
-                          instagramUrl: snapshot.data.documents[last - index]['instagram_url'],
-                          title: snapshot.data.documents[last - index]['title'],
-                          tag: snapshot.data.documents[last - index].documentID + '_thumbnail',
-                        ),
-                        favorite: snapshot.data.documents[last - index]['users_favorite'].toString().contains(user.uid),
-                      );
-                    }),
-                  );
-                }
-              ),
             ),
           ],
         ),

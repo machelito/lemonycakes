@@ -52,26 +52,38 @@ class _HomeScreenState extends State<HomeScreen> {
             offstage: _currentTabIndex != 1,
             child: TickerMode(
               enabled: _currentTabIndex == 1,
-              child: FavoritesScreen(),
+              child: TrendingScreen(),
             ),
           ),
           Offstage(
             offstage: _currentTabIndex != 2,
             child: TickerMode(
               enabled: _currentTabIndex == 2,
+              child: FavoritesScreen(),
+            ),
+          ),
+          Offstage(
+            offstage: _currentTabIndex != 3,
+            child: TickerMode(
+              enabled: _currentTabIndex == 3,
               child: SettingsScreen(parent: this,),
             ),
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentTabIndex,
         onTap: onTabTapped,
-        fixedColor: const Color(0xff716999),
+        fixedColor: Color(0xffb5a628),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
+            icon: Icon(Icons.home),
             title: Text(allTranslations.text('explore')),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star_border),
+            title: Text(allTranslations.text('trending')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),

@@ -158,7 +158,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                           style: TextStyle(
                                             fontFamily: 'KaushanScript',
                                             fontSize: 25.0,
-                                            color: Colors.black,
+                                            color: textColor,
                                           ),
                                         ),
                                       ),
@@ -187,7 +187,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                           style: TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 15.0,
-                                            color: Colors.black,
+                                            color: textColor,
                                           ),
                                         ),
                                       ),
@@ -205,7 +205,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                           style: TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 15.0,
-                                            color: Colors.black,
+                                            color: textColor,
                                           ),
                                         ),
                                       ),

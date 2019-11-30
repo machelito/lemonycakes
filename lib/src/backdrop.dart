@@ -36,7 +36,7 @@ class _BackdropPanel extends StatelessWidget {
             onTap: onTap,
             child: Container(
               height: 48.0,
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.fromLTRB(20.0, 15.0, 10.0, 0.0),
               alignment: AlignmentDirectional.centerStart,
               child: DefaultTextStyle(
                 style: Theme.of(context).textTheme.subhead,
@@ -185,13 +185,13 @@ class _BackdropState extends State<Backdrop>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(0.0),
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
                       child: Text(
-                        widget.item.title,
+                        widget.item.title + " ",
                         style: TextStyle(
                           fontFamily: 'KaushanScript',
                           fontSize: 25.0,
-                          color: Colors.black,
+                          color: textColor,
                         ),
                       ),
                     ),
@@ -228,7 +228,7 @@ class _BackdropState extends State<Backdrop>
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 15.0,
-                            color: Colors.black,
+                            color: textColor,
                           ),
                         ),
                       ),
@@ -241,7 +241,7 @@ class _BackdropState extends State<Backdrop>
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 15.0,
-                                color: Colors.black,
+                                color: textColor,
                               ),
                             ),
                           ),
